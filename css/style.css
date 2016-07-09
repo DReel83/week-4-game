@@ -1,0 +1,12 @@
+body {
+	font-family: font-family: 'PT Sans', sans-serif;
+}
+
+.jumbotron {
+	margin-top: 1%;
+	color: blue;
+}
+
+h1 {
+	text-align: center;
+}
