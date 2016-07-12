@@ -31,6 +31,8 @@
 		</div>
 	</div>
 
+	<div class="row">
+		<div class="">
 
 
 
@@ -45,17 +47,60 @@
 
 
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+
+$( document ).ready(function() {
+
+	var numberToGuess = random number  up to 100
+
+	var counter = 0;
+
+	var numbers = [10, 7, 5, 3]
+
+	var images = [ images ]
+
+	$('#number').text(numberToGuess);
+
+
+	for (var i = 0; i < numbers.length; i++) {
+		
+	
+		var imageCrystal = $('<img>');
+
+		imageCrystal.attr('data-num', numbers[i]);
+
+		imageCrystal.attr('scr', // image souurce// )
+
+		imageCrystal.attr('alt', 'crystals'); // refers to alt for image source//
+
+		imageCrystal.addClass('crystalImage');
+
+		$('#crystals').append(imageCrystal);
+
+	}
+
+
+		$('.crystalImage').on('click', function() {
+			counter = counter + parseInt(  $(this).data('num')  );
+
+			$('#yourNumber').text('counter');
+
+			if (counter == numberToGuess) {
+				alert('You Win!!!');
+			} else if {
+				alert('You Lost');
+			}
+		}
+
+}
 	
 
-
-
-
-
-
-
-
-
+// look up shuffle array //
 
 
 
