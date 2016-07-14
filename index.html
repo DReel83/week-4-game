@@ -1,110 +1,156 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>simple crystal game</title>
 
-<meta charset="utf-8">
-
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-
-<link rel="stylesheet" type="text/css" href="css/style.css">
-
-
-<link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+<!-- Viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<!-- Bootstrap CDN -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 
+<!-- Style Sheet -->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 
+<!-- Google Font links -->
+  <link href='https://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
 
+  <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
+  
 
-
-
-	<title>Crystal Collector</title>
 </head>
-
-
 <body>
+<div id="display"></div>
 
-	<div class="container">
-		<div class="jumbotron">
-			<h1>Crystal Collector</h1>
-		</div>
-	</div>
+<!-- Grid System Wrapper -->
+<div class="container">
 
+<!-- Jumbotron header element -->
+  <div class="row">
+    <div class="jumbotron">
+      <h1>Crystal Collector</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+          <p><strong>Welcome to Crystal Collector! The rules are simple. Each crysal has a different value and your job is collect crystals until your number matches the number to guess.</strong></p>  
+    </div>
+
+<!-- div user generated number -->
+      
+
+<!-- Div for computer generated number (number to guess) -->
 	<div class="row">
-		<div class="">
+		<div class="col-md-3">
+					<p>Number to Guess: <span id="number"></span></p>					
+		</div>
 
+<!-- div user generated number -->
+		<div class="col-md-3">
+					<p>Your Number: <span id="yourNumber"></span></p>
+				</div>
+	</div>		
+</div>
+  
+  
 
+<!-- div for crystal images -->  
+    <div class="row"> 
+      <div class="col-md-12">
+        <div id="crystals">
+      </div>
+    </div>
 
+<!-- Attempt at creating a button to clear the current game without having to refresh the page -->
 
-
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   <!-- <button id="clear">clear</button> -->
+  
+<!-- JQuery and JS -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 
 <script type="text/javascript">
 
 
 
-$( document ).ready(function() {
+  $( document ).ready(function() {
 
-	var numberToGuess = random number  up to 100
+    // Modified number to guess to make the number random, I think it's between 1- 100 but might be between 1- 102. 
+    var numberToGuess = Math.floor(Math.random() * 71 + 30);
 
-	var counter = 0;
+    var counter = 0;
 
-	var numbers = [10, 7, 5, 3]
+    var numbers = [10, 5, 3, 7];
 
-	var images = [ images ]
+    // Shuffle Function, shuffles values of crystals. 
+    function shuffle(a) {
+        var j, x, i;
+        for (i = a.length; i; i--) {
+            j = Math.floor(Math.random() * i);
+            x = a[i - 1];
+            a[i - 1] = a[j];
+            a[j] = x;
+        }
+    }   
 
-	$('#number').text(numberToGuess);
-
-
-	for (var i = 0; i < numbers.length; i++) {
-		
-	
-		var imageCrystal = $('<img>');
-
-		imageCrystal.attr('data-num', numbers[i]);
-
-		imageCrystal.attr('scr', // image souurce// )
-
-		imageCrystal.attr('alt', 'crystals'); // refers to alt for image source//
-
-		imageCrystal.addClass('crystalImage');
-
-		$('#crystals').append(imageCrystal);
-
-	}
+    shuffle(numbers);
+    console.log(numbers);
 
 
-		$('.crystalImage').on('click', function() {
-			counter = counter + parseInt(  $(this).data('num')  );
 
-			$('#yourNumber').text('counter');
 
-			if (counter == numberToGuess) {
-				alert('You Win!!!');
-			} else if {
-				alert('You Lost');
-			}
-		}
 
-}
-	
 
-// look up shuffle array //
+    // Outouts the number the player needs to guess.
+    $('#number').text(numberToGuess);
+
+    for (var i=0; i< numbers.length; i++){
+
+      var imageCrystal = $('<img>');
+
+  
+
+      imageCrystal.attr('data-num', numbers[i]);
+
+      imageCrystal.attr('src', 'assets/images/movingcrystal1.gif');
+      
+      imageCrystal.attr('alt', 'crystals');
+
+      imageCrystal.addClass('crystalImage');
+
+      $('#crystals').append(imageCrystal);
+      }
+
+      $('.crystalImage').on('click', function(){
+        counter = counter + parseInt($(this).data('num'));
+
+      $('#yourNumber').text(counter);
+
+
+/*  Attempt to innstall a "reset" button to avoid refreshing the entire 
+    page after every round */
+
+      // $('#clear').on('click', function(){
+        //  $('#display').empty(); });
+         
+
+       if (counter == numberToGuess){
+        alert('You won!!!!')
+        location.reload();
+      }else if( counter > numberToGuess){
+        alert('You lost!');
+        location.reload(); 
+      }
+
+     
+
+    });
+
+  });
 
 
 
 </script>
-
 </body>
 </html>

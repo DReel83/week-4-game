@@ -1,1 +1,1 @@
-<?php include_once("1.2.9-in-class-exercise"); ?>
+<?php include_once("index.html"); ?>
